@@ -52,31 +52,25 @@ class UserModel {
         }
     }
 
-    // Fungsi untuk menambahkan user
     public function tambahUser(UserJkt $user) {
         global $db;
 
-        // Hash password
         $hashedPassword = password_hash($user->password, PASSWORD_DEFAULT);
 
-        // Proses upload gambar
         $gambar = $this->upload();
         if (!$gambar) {
             return false;
         }
 
-        // Menyimpan data ke dalam database
         $query = "INSERT INTO $this->table (foto, nama, email, password, tipeUser, jenisKelamin, tanggalLahir, alamat, saldo, idMemberJkt)
                   VALUES ('{$gambar}', '{$user->nama}', '{$user->email}', '{$hashedPassword}', '{$user->tipeUser}', '{$user->jenisKelamin}', '{$user->tanggalLahir}', '{$user->alamat}', '{$user->saldo}', '{$user->idMemberJkt}')";
         mysqli_query($db, $query);
         return mysqli_affected_rows($db);
     }
 
-    // Fungsi untuk menghapus user
     public function hapusUser($id) {
         global $db;
 
-        // Ambil informasi user berdasarkan id untuk mendapatkan nama file gambar
         $user = $this->getUserById($id);
         if ($user && $user['foto']) {
             // Hapus file gambar jika ada
@@ -201,7 +195,7 @@ class UserModel {
             NULL AS kembalian, 
             'topUp' AS type
         FROM topUp t
-        WHERE t.userId = '$userId' AND t.status NOT IN ('rejected', 'pending') 
+        WHERE t.userId = '$userId' AND t.status NOT IN ( 'pending') 
         
         UNION ALL
 
@@ -237,5 +231,49 @@ class UserModel {
     return $history;
 }
 
+function getHistoryById($userId, $id) {
+    global $db;
+    $userId = mysqli_real_escape_string($db, $userId);
+    $id = mysqli_real_escape_string($db, $id);
+    $query = "
+        SELECT 
+            t.id AS id, 
+            t.jumlahPoint AS jumlah, 
+            t.tanggal AS Tanggal, 
+            t.status AS status, 
+            NULL AS eventNama, 
+            NULL AS jumlahTiket, 
+            NULL AS bayar, 
+            NULL AS kembalian, 
+            NULL AS tempat,
+            'topUp' AS type
+        FROM topUp t
+        WHERE t.userId = '$userId' AND t.id = '$id' AND t.status NOT IN ( 'pending') 
+        
+        UNION ALL
+
+        SELECT 
+            tr.id AS id, 
+            tr.totalHarga AS jumlah, 
+            tr.tanggal AS Tanggal, 
+            NULL AS status, 
+            e.nama AS eventNama, 
+            tr.jumlahTiket AS jumlahTiket, 
+            tr.bayar AS bayar, 
+            tr.kembalian AS kembalian, 
+            e.tempat AS tempat,
+            'transaksi' AS type
+        FROM transaksitiket tr
+        LEFT JOIN events e ON tr.eventId = e.id
+        WHERE tr.userId = '$userId' AND tr.id = '$id'
+    ";
+    $result = mysqli_query($db, $query);
+
+    if (!$result) {
+        die("Query error: " . mysqli_error($db));
+    }
+
+    return mysqli_fetch_assoc($result);
+}
 }
 ?>

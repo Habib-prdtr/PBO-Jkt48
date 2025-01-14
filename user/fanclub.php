@@ -27,7 +27,20 @@ if (isset($_SESSION['user_id'])) {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>JKT48 Fan Club</title>
+  <link rel="icon" type="image/jpeg" href="../images/icon.jpg">
+  <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://unpkg.com/tailwindcss@^2.0/dist/tailwind.min.css" rel="stylesheet">
+  <script>
+      tailwind.config = {
+          theme: {
+              extend: {
+                  colors: {
+                      'jkt-gold': '#FFD700',
+                  },
+              },
+          },
+      };
+  </script>
 </head>
 <body class="bg-gray-100">
 <?php include 'navbar.php'; ?>
@@ -81,5 +94,12 @@ if (isset($_SESSION['user_id'])) {
       <?php endif; ?>
     </div>
   </section>
+  <footer class="bg-gray-900 text-white py-4 mt-10" style="overflow: hidden;">
+        <div class="container mx-auto text-center">
+            <p class="text-jkt-gold font-semibold">&copy; 2024 JKT48 Official Fansite</p>
+            <a href="https://www.instagram.com/habib_prdtr" target="_blank"><i class="fab fa-instagram"></i> Author</a>
+            <p class="mt-2 text-sm">All Rights Reserved | Reference <a href="https://jkt48.com/" target="_blank">jkt48.com</a></p>
+        </div>
+    </footer>
 </body>
 </html>

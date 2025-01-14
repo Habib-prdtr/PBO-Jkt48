@@ -1,8 +1,8 @@
 <?php
 session_start();
 
-require_once '../config/database.php'; // Ganti dengan path yang sesuai
-require_once '../models/UserModel.php'; // Ganti dengan path yang sesuai
+require_once '../config/database.php'; 
+require_once '../models/UserModel.php'; 
 
 // Cek apakah user sudah login
 if (!isset($_SESSION['login'])) {
@@ -37,72 +37,99 @@ if (!$user) {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My Page</title>
+  <link rel="icon" type="image/jpeg" href="../images/icon.jpg">
+  <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://unpkg.com/tailwindcss@^2.0/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+  <script>
+      tailwind.config = {
+          theme: {
+              extend: {
+                  colors: {
+                      'jkt-gold': '#FFD700',
+                  },
+              },
+          },
+      };
+  </script>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    .content {
+      flex: 1 0 auto;
+    }
+    footer {
+      flex-shrink: 0;
+    }
+  </style>
 </head>
-<body class="bg-gray-100">
+<body class="bg-gray-100 flex flex-col min-h-screen">
 <?php include 'navbar.php'; ?>
-  <div class="container mx-auto p-6">
-    <div class="bg-white p-8 rounded-lg shadow-md">
-      <div class="bg-red-500 text-white text-center py-3 text-2xl font-bold w-full">
+<div class="content flex-grow">
+    <div class="bg-white p-6 sm:p-8 rounded-lg shadow-md">
+      <div class="bg-red-500 text-white text-center py-3 text-lg sm:text-2xl font-bold w-full">
         MY PAGE
       </div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 mt-6 mb-6">
+      <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 mt-6">
         <!-- Foto Member -->
         <div class="lg:col-span-1 flex justify-center">
           <div class="bg-gray-100 p-4 rounded-lg shadow">
-            <img src="../images/member/<?php echo $user['fotoOshimen']; ?>" alt="<?php echo $user['fotoOshimen']; ?>" class="rounded-lg object-contain">
+            <img src="../images/member/<?php echo $user['fotoOshimen']; ?>" 
+                 alt="<?php echo $user['fotoOshimen']; ?>" 
+                 class="rounded-lg object-contain max-w-full h-auto">
           </div>
         </div>
 
         <!-- Data Pengguna -->
         <div class="lg:col-span-3">
           <div class="space-y-4">
-            <div class="flex items-center border-b border-gray-300 pb-2">
-              <div class="w-1/3 font-bold">Nomor Anggota: </div>
-              <div class="w-2/3"><?php echo $user['id']; ?> | <a href="../user/cards.php?id=<?php echo $user['id']; ?>" class="text-red-500 hover:underline">
+            <div class="flex flex-wrap items-center border-b border-gray-300 pb-2">
+              <div class="w-full sm:w-1/3 font-bold">Nomor Anggota:</div>
+              <div class="w-full sm:w-2/3 text-sm">
+                <?php echo $user['id']; ?> | 
+                <a href="../user/cards.php?id=<?php echo $user['id']; ?>" class="text-red-500 hover:underline">
                   Lihat Kartu Anggota
-                </a></div>
+                </a>
+              </div>
             </div>
-            <div class="flex items-center border-b border-gray-300 pb-2">
-              <div class="w-1/3 font-bold">Nama:</div>
-              <div class="w-2/3"><?php echo $user['nama']; ?></div>
+            <div class="flex flex-wrap items-center border-b border-gray-300 pb-2">
+              <div class="w-full sm:w-1/3 font-bold">Nama:</div>
+              <div class="w-full sm:w-2/3 text-sm"><?php echo $user['nama']; ?></div>
             </div>
-            <div class="flex items-center border-b border-gray-300 pb-2">
-              <div class="w-1/3 font-bold">Jenis Keanggotaan:</div>
-              <div class="w-2/3"><?php echo $user['tipeUser']; ?></div>
+            <div class="flex flex-wrap items-center border-b border-gray-300 pb-2">
+              <div class="w-full sm:w-1/3 font-bold">Jenis Keanggotaan:</div>
+              <div class="w-full sm:w-2/3 text-sm"><?php echo $user['tipeUser']; ?></div>
             </div>
-            <div class="flex items-center border-b border-gray-300 pb-2">
-              <div class="w-1/3 font-bold">Anggota yang paling disukai
-              (Oshimen):</div>
-              <div class="w-2/3">
+            <div class="flex flex-wrap items-center border-b border-gray-300 pb-2">
+              <div class="w-full sm:w-1/3 font-bold">Oshimen:</div>
+              <div class="w-full sm:w-2/3 text-sm">
                 <a href="member.php?id=<?php echo $user['idMemberJkt']; ?>" class="text-red-500 hover:underline">
                   <?php echo $user['namaOshimen']; ?>
                 </a>
               </div>
             </div>
-            <div class="flex items-center border-b border-gray-300 pb-2">
-              <div class="w-1/3 font-bold">Jumlah JKT48 Points:</div>
-              <div class="w-2/3">
-                <div class="flex flex-col">
-                  <div class="inline-flex items-center">
-                    <span>Saldo Poin:</span>
-                    <span class="ml-1"><?php echo $user['saldo']; ?> P</span>
+            <div class="flex flex-wrap items-center border-b border-gray-300 pb-2">
+              <div class="w-full sm:w-1/3 font-bold">Jumlah JKT48 Points:</div>
+              <div class="w-full sm:w-2/3">
+                <div class="flex flex-wrap items-center justify-between text-sm">
+                  <span>Saldo Poin: <?php echo $user['saldo']; ?> P</span>
                   </div>
                   <a href="../admin/index.php?modul=topUp&fitur=input" class="mt-2 bg-red-500 text-white px-4 py-2 rounded-lg text-sm hover:bg-red-600 inline-flex max-w-max">Beli JKT48 Points</a>
                 </div>
+                </div>
               </div>
-            </div>
-
-
             </div>
           </div>
         </div>
       </div>
 
-      <div class="border-t border-gray-300 pt-6">
-        <h3 class="text-xl font-semibold mb-4 border-b-2 border-gray-300 pb-2">Menu Anggota</h3>
-        <ul class="space-y-2">
+      <div class="border-t border-gray-300 pt-6 mt-6 ml-4">
+        <h3 class="text-lg sm:text-xl font-semibold mb-4 border-b-2 border-gray-300 pb-2">Menu Anggota</h3>
+        <ul class="space-y-2 text-sm">
           <li>
             <a href="index.php?modul=user&fitur=edit&id=<?php echo $user['id']; ?>" class="text-red-500 hover:underline">Ubah Data Pribadi</a>
           </li>
@@ -112,26 +139,30 @@ if (!$user) {
         </ul>
       </div>
 
-      <div class="border-t border-gray-300 pt-6 mt-6">
-    <h3 class="text-xl font-semibold mb-4 border-b-2 border-gray-300 pb-2">History JKT48 Points</h3>
-    <div class="overflow-x-auto p-4 bg-gray-50 rounded-lg shadow-md">
-    <table class="table-auto w-full border border-gray-200 text-sm">
-        <thead class="bg-gradient-to-r from-red-500 to-red-400 text-white">
-            <tr>
-                <th class="px-6 py-3 text-center text-lg font-semibold">Type</th>
-                <th class="px-6 py-3 text-center text-lg font-semibold">ID</th>
-                <th class="px-6 py-3 text-center text-lg font-semibold">Tanggal Perubahan</th>
-                <th class="px-6 py-3 text-center text-lg font-semibold">Jumlah</th>
-                <th class="px-6 py-3 text-center text-lg font-semibold">Perubahan Poin</th>
-                <th class="px-6 py-3 text-center text-lg font-semibold">Operasi</th>
-            </tr>
-        </thead>
+      <div class="border-t border-gray-300 pt-6 mt-6 ml-4 mb-8">
+        <h3 class="text-lg sm:text-xl font-semibold mb-4 border-b-2 border-gray-300 pb-2">History JKT48 Points</h3>
+        <div class="overflow-x-auto p-4 bg-gray-50 rounded-lg shadow-md">
+          <table class="table-auto w-full border border-gray-200 text-sm">
+            <thead class="bg-gradient-to-r from-red-500 to-red-400 text-white">
+              <tr>
+                <th class="px-4 sm:px-6 py-3 text-center font-semibold">Type</th>
+                <th class="px-4 sm:px-6 py-3 text-center font-semibold">ID</th>
+                <th class="px-4 sm:px-6 py-3 text-center font-semibold">Tanggal</th>
+                <th class="px-4 sm:px-6 py-3 text-center font-semibold">Jumlah</th>
+                <th class="px-4 sm:px-6 py-3 text-center font-semibold">Perubahan Poin</th>
+                <th class="px-4 sm:px-6 py-3 text-center font-semibold">Operasi</th>
+              </tr>
+            </thead>
         <tbody>
             <?php if (!empty($history)) : ?>
                 <?php foreach ($history as $index => $item) : 
                     $jumlah = ($item['type'] === 'topUp') ? "{$item['jumlah']}" : "{$item['jumlah']}";
                     $id = $item['id'] + 919;
-                    $perubahanPoin = ($item['type'] === 'topUp') ? "+{$jumlah}" : "-{$jumlah}";
+                    $perubahanPoin = ($item['type'] === 'topUp' && $item['status'] === 'rejected') 
+                ? "+0" 
+                : (($item['type'] === 'topUp') 
+                    ? "+{$jumlah}" 
+                    : "-{$jumlah}");
                 ?>
                     <tr class="hover:bg-gray-100 transition duration-150">
                         <td class="border px-6 py-4 text-center font-medium text-gray-800"><?= ucfirst($item['type']) ?></td>
@@ -150,79 +181,89 @@ if (!$user) {
 
                     <!-- Modal -->
                     <div id="modal-<?= $index ?>" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-                        <div class="bg-white rounded-xl p-4 w-full max-w-md shadow-lg relative">
-                            <!-- Header -->
-                            <h2 class="text-lg font-semibold mb-3 text-gray-800 flex items-center">
-                                <span class="inline-block bg-red-500 text-white w-6 h-6 flex items-center justify-center rounded-full mr-2 text-sm">
-                                    <?= ucfirst($item['type'])[0] ?>
-                                </span>
-                                Detail <?= ucfirst($item['type']) ?>
-                            </h2>
-                            <div class="space-y-2 border-t pt-2">
-                                <!-- Informasi ID -->
-                                <div class="grid grid-cols-3 gap-1">
-                                    <span class="text-gray-600 font-medium font-bold text-left">ID</span>
-                                    <span class="text-gray-600 font-medium text-sm text-left">:</span>
-                                    <span class="text-gray-800 font-medium text-sm text-left"><?= $item['id'] ?></span>
-                                </div>
-                                <!-- Tanggal -->
-                                <div class="grid grid-cols-3 gap-1">
-                                    <span class="text-gray-600 font-medium font-bold text-left">Tanggal</span>
-                                    <span class="text-gray-600 font-medium text-sm text-left">:</span>
-                                    <span class="text-gray-800 text-sm text-left"><?= $item['Tanggal'] ?></span>
-                                </div>
-                                <!-- Jumlah -->
-                                <div class="grid grid-cols-3 gap-1">
-                                    <span class="text-gray-600 font-medium font-bold text-left">Jumlah</span>
-                                    <span class="text-gray-600 font-medium text-sm text-left">:</span>
-                                    <span class="text-green-600 font-medium text-sm text-left"><?= $item['jumlah'] ?> P</span>
-                                </div>
-                                <!-- Status atau Detail Transaksi -->
-                                <?php if ($item['type'] === 'topUp') : ?>
-                                    <div class="grid grid-cols-3 gap-1">
-                                        <span class="text-gray-600 font-medium font-bold text-left">Status</span>
-                                        <span class="text-gray-600 font-medium text-sm text-left">:</span>
-                                        <span class="text-blue-600 font-medium text-sm text-left"><?= $item['status'] ?? 'N/A' ?></span>
-                                    </div>
-                                <?php elseif ($item['type'] === 'transaksi') : ?>
-                                    <div class="grid grid-cols-3 gap-1">
-                                        <span class="text-gray-600 font-medium font-bold text-left">Nama Event</span>
-                                        <span class="text-gray-600 font-medium text-sm text-left">:</span>
-                                        <span class="text-gray-800 text-sm text-left"><?= $item['eventNama'] ?? 'Upgrade OFC' ?></span>
-                                    </div>
-                                    <div class="grid grid-cols-3 gap-1">
-                                        <span class="text-gray-600 font-medium font-bold text-left">Jumlah Tiket</span>
-                                        <span class="text-gray-600 font-medium text-sm text-left">:</span>
-                                        <span class="text-gray-800 text-sm text-left"><?= $item['jumlahTiket'] ?? 'N/A' ?></span>
-                                    </div>
-                                    <div class="grid grid-cols-3 gap-1">
-                                        <span class="text-gray-600 font-medium font-bold text-left">Bayar</span>
-                                        <span class="text-gray-600 font-medium text-sm text-left">:</span>
-                                        <span class="text-gray-800 text-sm text-left"><?= $item['bayar'] ?? 'N/A' ?></span>
-                                    </div>
-                                    <div class="grid grid-cols-3 gap-1">
-                                        <span class="text-gray-600 font-medium font-bold text-left">Kembalian</span>
-                                        <span class="text-gray-600 font-medium text-sm text-left">:</span>
-                                        <span class="text-gray-800 text-sm text-left"><?= $item['kembalian'] ?? 'N/A' ?></span>
-                                    </div>
-                                <?php endif; ?>
+                    <div class="bg-white rounded-xl p-4 w-full max-w-md shadow-lg relative">
+                        <!-- Header -->
+                        <h2 class="text-lg font-semibold mb-3 text-gray-800 flex items-center">
+                            <span class="inline-block bg-red-500 text-white w-6 h-6 flex items-center justify-center rounded-full mr-2 text-sm">
+                                <?= ucfirst($item['type'])[0] ?>
+                            </span>
+                            Detail <?= ucfirst($item['type']) ?>
+                        </h2>
+                        <div class="space-y-2 border-t pt-2">
+                            <!-- Informasi ID -->
+                            <div class="grid grid-cols-3 gap-1">
+                                <span class="text-gray-600 font-medium font-bold text-left">ID</span>
+                                <span class="text-gray-600 font-medium text-sm text-left">:</span>
+                                <span class="text-gray-800 font-medium text-sm text-left"><?= $item['id'] ?></span>
                             </div>
-                            <!-- Tombol Tutup -->
-                            <div class="mt-4 text-right">
-                                <button 
-                                    class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition text-sm"
-                                    onclick="hideDetailModal(<?= $index ?>)">
-                                    Tutup
-                                </button>
+                            <!-- Tanggal -->
+                            <div class="grid grid-cols-3 gap-1">
+                                <span class="text-gray-600 font-medium font-bold text-left">Tanggal</span>
+                                <span class="text-gray-600 font-medium text-sm text-left">:</span>
+                                <span class="text-gray-800 text-sm text-left"><?= $item['Tanggal'] ?></span>
                             </div>
-                            <!-- Tombol Close (Desktop) -->
-                            <button 
-                                class="absolute top-2 right-2 text-gray-400 hover:text-gray-600 transition text-lg"
-                                onclick="hideDetailModal(<?= $index ?>)">
-                                &times;
-                            </button>
+                            <!-- Jumlah -->
+                            <div class="grid grid-cols-3 gap-1">
+                                <span class="text-gray-600 font-medium font-bold text-left">Jumlah</span>
+                                <span class="text-gray-600 font-medium text-sm text-left">:</span>
+                                <span class="text-green-600 font-medium text-sm text-left"><?= $item['jumlah'] ?> P</span>
+                            </div>
+                            <!-- Status atau Detail Transaksi -->
+                            <?php if ($item['type'] === 'topUp') : ?>
+                                <div class="grid grid-cols-3 gap-1">
+                                    <span class="text-gray-600 font-medium font-bold text-left">Status</span>
+                                    <span class="text-gray-600 font-medium text-sm text-left">:</span>
+                                    <span class="text-blue-600 font-medium text-sm text-left"><?= $item['status'] ?? 'N/A' ?></span>
+                                </div>
+                            <?php elseif ($item['type'] === 'transaksi') : ?>
+                                <div class="grid grid-cols-3 gap-1">
+                                    <span class="text-gray-600 font-medium font-bold text-left">Nama Event</span>
+                                    <span class="text-gray-600 font-medium text-sm text-left">:</span>
+                                    <span class="text-gray-800 text-sm text-left"><?= $item['eventNama'] ?? 'Upgrade OFC' ?></span>
+                                </div>
+                                <div class="grid grid-cols-3 gap-1">
+                                    <span class="text-gray-600 font-medium font-bold text-left">Jumlah Tiket</span>
+                                    <span class="text-gray-600 font-medium text-sm text-left">:</span>
+                                    <span class="text-gray-800 text-sm text-left"><?= $item['jumlahTiket'] ?? 'N/A' ?></span>
+                                </div>
+                                <div class="grid grid-cols-3 gap-1">
+                                    <span class="text-gray-600 font-medium font-bold text-left">Bayar</span>
+                                    <span class="text-gray-600 font-medium text-sm text-left">:</span>
+                                    <span class="text-gray-800 text-sm text-left"><?= $item['bayar'] ?? 'N/A' ?></span>
+                                </div>
+                                <div class="grid grid-cols-3 gap-1">
+                                    <span class="text-gray-600 font-medium font-bold text-left">Kembalian</span>
+                                    <span class="text-gray-600 font-medium text-sm text-left">:</span>
+                                    <span class="text-gray-800 text-sm text-left"><?= $item['kembalian'] ?? 'N/A' ?></span>
+                                </div>
+                            <?php endif; ?>
                         </div>
+                        <!-- Tombol Tutup -->
+                        <div class="mt-4 text-right">
+                        <a href="../user/cetak.php?id=<?= $item['id'] ?>" target="_blank">
+                                <button class="inline-flex items-center bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 shadow-lg transition text-sm">
+                                    <span class="material-icons-outlined mr-2">print</span>
+                                    Cetak PDF
+                                </button>
+                            </a>
+                        </div>
+                        <div class="mt-4 text-right">
+                            <button 
+                                class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition text-sm"
+                                onclick="hideDetailModal(<?= $index ?>)">
+                                Tutup
+                            </button>
+                            <!-- Tombol Cetak PDF -->
+                        </div>
+                        <!-- Tombol Close (Desktop) -->
+                        <button 
+                            class="absolute top-2 right-2 text-gray-400 hover:text-gray-600 transition text-lg"
+                            onclick="hideDetailModal(<?= $index ?>)">
+                            &times;
+                        </button>
                     </div>
+                </div>
+
                 <?php endforeach; ?>
             <?php else : ?>
                 <tr>
@@ -244,6 +285,16 @@ function hideDetailModal(index) {
 </script>
     </div>
   </div>
+  <footer class="bg-gray-900 text-white py-4 w-full" style="overflow: hidden;">
+    <div class="container mx-auto text-center px-4">
+      <p class="text-jkt-gold font-semibold text-sm sm:text-base">&copy; 2024 JKT48 Official Fansite</p>
+      <a href="https://www.instagram.com/habib_prdtr" target="_blank" class="text-sm sm:text-base">
+        <i class="fab fa-instagram"></i> Author
+      </a>
+      <p class="mt-2 text-xs sm:text-sm">All Rights Reserved | Reference <a href="https://jkt48.com/" target="_blank">jkt48.com</a></p>
+    </div>
+  </footer>
+
 </body>
 </html>
 

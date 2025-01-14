@@ -8,6 +8,6 @@ setcookie('user_id', '', time() - 3600, "/"); // Hapus cookie user_id
 setcookie('user_name', '', time() - 3600, "/"); // Hapus cookie user_name
 
 // Redirect ke halaman login
-header('Location: login.php');
+header('Location: ../user/login.php');
 exit;
 ?>

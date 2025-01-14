@@ -77,18 +77,6 @@ switch ($modul) {
                 $transaksiController->add();
                 break;
 
-            case 'edit':
-                $transaksiController->edit();
-                break;
-
-            case 'update':
-                $transaksiController->update();
-                break;
-
-            case 'delete':
-                $transaksiController->delete();
-                break;
-
             default:
                 echo "Fitur transaksi tidak ditemukan!";
                 break;

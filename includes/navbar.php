@@ -5,8 +5,8 @@
         <div class="text-white">
             <span class="font-semibold">Admin</span> | <span class="text-yellow-400"></span>
         </div>
-        <button class="bg-yellow-500 px-4 py-2 text-white rounded-lg hover:bg-yellow-600 transition duration-300">
+        <a href="../user/logout.php"><button class="bg-yellow-500 px-4 py-2 text-white rounded-lg hover:bg-yellow-600 transition duration-300">
             <i class="fas fa-sign-out-alt"></i> Logout
-        </button>
+        </button></a>
     </div>
 </div>

@@ -46,10 +46,10 @@ class TopUpModel {
     // Fungsi untuk mendapatkan semua data top-up dengan opsi filter (misalnya berdasarkan userId)
     public function getTopUpList() {
         global $db;
-        $query = "SELECT topUp.*, users.nama AS namaUser 
-                  FROM topUp 
-                  JOIN users ON topUp.userId = users.id
-                  ORDER BY topUp.tanggal ASC"; // Urutkan dari lama ke baru
+        $query = "SELECT topup.*, users.nama AS namaUser 
+                  FROM topup 
+                  JOIN users ON topup.userId = users.id
+                  ORDER BY topup.tanggal ASC"; // Urutkan dari lama ke baru
         $result = mysqli_query($db, $query);
         $topUpList = [];
         while ($row = mysqli_fetch_assoc($result)) {

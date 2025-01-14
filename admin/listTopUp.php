@@ -52,7 +52,11 @@
                                     <td class="px-6 py-4"><?php echo htmlspecialchars($topUp['tanggal']); ?></td>
 
                                     <!-- Status -->
-                                    <td class="px-6 py-4"><?php echo htmlspecialchars($topUp['status']); ?></td>
+                                    <td class="px-6 py-4 
+                                        <?php echo ($topUp['status'] === 'rejected') ? 'text-red-500' : ($topUp['status'] === 'approved' ? 'text-blue-500' : ''); ?>">
+                                        <?php echo htmlspecialchars($topUp['status']); ?>
+                                    </td>
+
 
                                     <!-- Action -->
                                     <td class="px-6 py-4 text-center">

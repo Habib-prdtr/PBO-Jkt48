@@ -26,14 +26,27 @@ if ($user['tipeUser'] === 'OFC') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Upgrade Keanggotaan JKT48 Official</title>
+    <link rel="icon" type="image/jpeg" href="../images/icon.jpg">
+    <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script>
+      tailwind.config = {
+          theme: {
+              extend: {
+                  colors: {
+                      'jkt-gold': '#FFD700',
+                  },
+              },
+          },
+      };
+  </script>
 </head>
 <body class="bg-gray-100 text-gray-800">
 <?php include 'navbar.php'; ?>
 <div class="container mx-auto px-4">
-        <h1 class="text-2xl font-bold text-center mt-8 mb-4">Upgrade Keanggotaan JKT48 Official</h1>
+        <h1 class="text-2xl font-bold text-center mt-8 mb-1">Upgrade Keanggotaan JKT48 Official</h1>
     </div>
-    <main class="py-8">
+    <main class="py-8 sm:ml-4 sm:mr-4 md:ml-20 md:mr-20">
         <div class="container mx-auto px-4">
             <div class="post bg-white p-6 rounded-lg shadow-lg">
                 <p>Terima kasih telah upgrade dari JKT48 Official Fan Club keanggotaan gratis.<br/>
@@ -41,7 +54,6 @@ if ($user['tipeUser'] === 'OFC') {
 
                 <h3 class="mt-4 text-lg font-semibold">Yang harus dipersiapkan:</h3>
                 <ol class="pl-4 list-decimal">
-                    <li>Pas foto (tanpa background dan dapat dikenali)<br/><img class="m-2" src="https://jkt48.com/images/pic-fanclub1.png" alt="Contoh Pas Foto"></li>
                     <li>Uang pendaftaran: Rp100.000,- Iuran OFC: Rp200.000, = Total Rp300.000,-</li>
                 </ol>
 
@@ -71,11 +83,7 @@ if ($user['tipeUser'] === 'OFC') {
             </div>
         </div>
     </main>
-    <footer class="bg-gray-800 text-white py-4">
-        <div class="container mx-auto text-center">
-            <p>&copy; 2024 JKT48 Fansite. All Rights Reserved.</p>
-        </div>
-    </footer>
+    
     <script>
     const saldoJktPoint = <?php echo $saldo; ?>;
     const kembalianInput = document.getElementById('kembalian');
@@ -92,6 +100,12 @@ if ($user['tipeUser'] === 'OFC') {
     // Panggil fungsi untuk langsung menghitung kembalian saat halaman dimuat
     calculateKembalian();
 </script>
-
+<footer class="bg-gray-900 text-white py-4 mt-10" style="overflow: hidden;">
+        <div class="container mx-auto text-center">
+            <p class="text-jkt-gold font-semibold">&copy; 2024 JKT48 Official Fansite</p>
+            <a href="https://www.instagram.com/habib_prdtr" target="_blank"><i class="fab fa-instagram"></i> Author</a>
+            <p class="mt-2 text-sm">All Rights Reserved | Reference <a href="https://jkt48.com/" target="_blank">jkt48.com</a></p>
+        </div>
+    </footer>
 </body>
 </html>

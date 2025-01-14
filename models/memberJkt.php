@@ -142,5 +142,23 @@ class MemberModel {
         $result = mysqli_query($db, $query);
         return mysqli_fetch_assoc($result);
     }
+
+    public function getDetailedMemberById($id) {
+        $memberData = $this->getMemberById($id);
+        if ($memberData) {
+            $member = new MemberJkt(
+                $memberData['id'],
+                $memberData['foto'],
+                $memberData['nama'],
+                $memberData['tanggalLahir'],
+                $memberData['golonganDarah'],
+                $memberData['Horoskop'],
+                $memberData['tinggiBadan']
+            );
+            return $member->getMemberDetail();
+        }
+        return null;
+    }
+    
 }
 ?>

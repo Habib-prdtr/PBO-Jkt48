@@ -122,8 +122,6 @@
     // Show the modal
     document.getElementById('transaksiModal').classList.remove('hidden');
 }
-
-
         function closeModal() {
             // Hide the modal
             document.getElementById('transaksiModal').classList.add('hidden');

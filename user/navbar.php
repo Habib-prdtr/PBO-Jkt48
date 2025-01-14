@@ -35,25 +35,23 @@ $isLoggedIn = isset($_SESSION['user_id']); // Cek status login
     }
 </style>
 
-<nav class="bg-red-500 text-white py-4 shadow-md">
-    <div class="container mx-auto flex items-center justify-between">
-        <h1 class="text-2xl font-bold">JEKETI48 angjayy</h1>
-        <!-- Hamburger Menu -->
+<nav class="bg-red-600 text-white py-4 shadow-md">
+    <div class="container mx-auto flex items-center justify-between px-4">
+        <a href="../user/index.php"><h1 class="text-2xl font-bold">JEKETI48</h1></a>
         <button id="menuToggle" class="block md:hidden text-white">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16m-7 6h7" />
             </svg>
         </button>
-        <!-- Menu Links -->
         <ul class="hidden md:flex space-x-4">
             <li><a href="../user/index.php" class="hover:underline">Home</a></li>
             <li><a href="../user/event.php" class="hover:underline">Event</a></li>
             <li><a href="../user/member.php" class="hover:underline">Member</a></li>
             <li class="dropdown relative">
-                <button id="dropdownNavbarLink" class="flex items-center justify-between py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:w-auto dark:text-white md:dark:hover:text-blue-500 dark:focus:text-white dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent">
+                <button id="dropdownNavbarLink" class="flex items-center text-white">
                     JKTPoint
-                    <svg class="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4" />
+                    <svg class="w-3 h-3 ml-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1l4 4 4-4" />
                     </svg>
                 </button>
                 <div id="dropdownNavbar" class="dropdown-content hidden font-normal bg-white divide-y divide-gray-100 rounded-lg shadow z-10">
@@ -65,27 +63,25 @@ $isLoggedIn = isset($_SESSION['user_id']); // Cek status login
             </li>
             <li><a href="../user/fanclub.php" class="hover:underline">JKT Fanclub</a></li>
         </ul>
-        <!-- Login/Register or My Page and Logout -->
         <div class="hidden md:flex space-x-2">
             <?php if ($isLoggedIn): ?>
-                <a href="profile.php" class="bg-white text-red-500 px-4 py-2 rounded-lg shadow hover:bg-gray-200"><i class="fa-solid fa-user"></i> My Page</a>
-                <a href="logout.php" class="bg-white text-red-500 px-4 py-2 rounded-lg shadow hover:bg-gray-200"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+                <a href="../user/profile.php" class="bg-white text-red-500 px-4 py-2 rounded-lg shadow hover:bg-gray-200">My Page</a>
+                <a href="../user/logout.php" class="bg-white text-red-500 px-4 py-2 rounded-lg shadow hover:bg-gray-200">Logout</a>
             <?php else: ?>
-                <a href="login.php" class="bg-white text-red-500 px-4 py-2 rounded-lg shadow hover:bg-gray-200"><i class="fa-solid fa-right-to-bracket"></i> Login</a>
-                <a href="index.php?modul=user&fitur=input" class="bg-white text-red-500 px-4 py-2 rounded-lg shadow hover:bg-gray-200"><i class="fa-solid fa-address-card"></i> Register</a>
+                <a href="login.php" class="bg-white text-red-500 px-4 py-2 rounded-lg shadow hover:bg-gray-200">Login</a>
+                <a href="index.php?modul=user&fitur=input" class="bg-white text-red-500 px-4 py-2 rounded-lg shadow hover:bg-gray-200">Register</a>
             <?php endif; ?>
         </div>
     </div>
-    <!-- Mobile Menu -->
-    <div id="mobileMenu" class="mobile-menu bg-red-500 text-white p-4 md:hidden">
+    <div id="mobileMenu" class="mobile-menu hidden md:hidden bg-red-500 text-white px-4">
         <ul class="space-y-4">
-            <li><a href="index.php" class="hover:underline">Home</a></li>
-            <li><a href="event.php" class="hover:underline">Event</a></li>
-            <li><a href="member.php" class="hover:underline">Member</a></li>
+            <li><a href="../user/index.php" class="hover:underline">Home</a></li>
+            <li><a href="../user/event.php" class="hover:underline">Event</a></li>
+            <li><a href="../user/member.php" class="hover:underline">Member</a></li>
             <li class="dropdown">
-                <button id="mobileDropdownLink" class="flex items-center justify-between w-full text-left">
+                <button id="mobileDropdownLink" class="flex items-center text-white">
                     JKTPoint
-                    <svg class="w-4 h-4 ml-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6" stroke="currentColor">
+                    <svg class="w-4 h-4 ml-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1l4 4 4-4" />
                     </svg>
                 </button>
@@ -96,17 +92,17 @@ $isLoggedIn = isset($_SESSION['user_id']); // Cek status login
                     </ul>
                 </div>
             </li>
-            <li><a href="fanclub.php" class="hover:underline">JKT Fanclub</a></li>
-            <div class="flex space-x-2">
-                <?php if ($isLoggedIn): ?>
-                    <a href="myPage.php" class="bg-white text-red-500 px-4 py-2 rounded-lg shadow hover:bg-gray-200"><i class="fa-solid fa-user"></i> My Page</a>
-                    <a href="logout.php" class="bg-white text-red-500 px-4 py-2 rounded-lg shadow hover:bg-gray-200"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
-                <?php else: ?>
-                    <a href="login.php" class="bg-white text-red-500 px-4 py-2 rounded-lg shadow hover:bg-gray-200"><i class="fa-solid fa-right-to-bracket"></i> Login</a>
-                    <a href="registrasi.php" class="bg-white text-red-500 px-4 py-2 rounded-lg shadow hover:bg-gray-200"><i class="fa-solid fa-address-card"></i> Register</a>
-                <?php endif; ?>
-            </div>
+            <li><a href="../user/fanclub.php" class="hover:underline">JKT Fanclub</a></li>
         </ul>
+        <div class="mt-4 flex space-x-2">
+            <?php if ($isLoggedIn): ?>
+                <a href="../user/profile.php" class="bg-white text-red-500 px-4 py-2 rounded-lg shadow hover:bg-gray-200">My Page</a>
+                <a href="../user/logout.php" class="bg-white text-red-500 px-4 py-2 rounded-lg shadow hover:bg-gray-200">Logout</a>
+            <?php else: ?>
+                <a href="login.php" class="bg-white text-red-500 px-4 py-2 rounded-lg shadow hover:bg-gray-200">Login</a>
+                <a href="index.php?modul=user&fitur=input" class="bg-white text-red-500 px-4 py-2 rounded-lg shadow hover:bg-gray-200">Register</a>
+            <?php endif; ?>
+        </div>
     </div>
 </nav>
 

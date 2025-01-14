@@ -25,6 +25,7 @@ $user = $userModel->getUserById($user_id);
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Card Design</title>
+  <link rel="icon" type="image/jpeg" href="../images/icon.jpg">
   <link href="https://fonts.googleapis.com/css?family=Abel" rel="stylesheet">
   <style>
     @import url('https://fonts.googleapis.com/css?family=Abel');
