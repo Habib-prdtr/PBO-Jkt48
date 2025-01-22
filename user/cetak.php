@@ -144,6 +144,7 @@ $html = '
             color: #333;
 }
     </style>
+
 </head>
 <body>
     <div class="container">

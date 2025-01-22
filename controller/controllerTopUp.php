@@ -1,7 +1,7 @@
 <?php
 session_start();
-require_once __DIR__ . '/../models/topUpModel.php';
-require_once __DIR__ . '/../models/userModel.php';
+require_once __DIR__ . '/../models/TopUpModel.php';
+require_once __DIR__ . '/../models/UserModel.php';
 
 class TopUpController
 {

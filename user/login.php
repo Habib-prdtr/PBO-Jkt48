@@ -9,26 +9,32 @@ $userModel = new UserModel();
 
 // Debug: Cek apakah form disubmit
 if (isset($_POST['submit'])) {
-    // Ambil data email dan password
-    $email = $_POST["email"];
-    $password = $_POST["password"];
-    $error = false;
+    try {
+        $email = $_POST["email"];
+        $password = $_POST["password"];
 
-    $user = $userModel->getUserByEmail($email);
+        $user = $userModel->getUserByEmail($email);
 
-    if ($user && password_verify($password, $user['password'])) {
-        $_SESSION["login"] = true;
-        $_SESSION["user_id"] = $user['id'];
-        $_SESSION["user_name"] = $user['nama'];
-        $_SESSION["user_email"] = $user['email'];
-        $_SESSION["user_oshimen"] = $user['namaOshimen'];
-        header("Location: ../user/profile.php");
-        exit;
-    } else if ($email === 'Admin' && $password === 'admin123#') {
-        header("Location: ../admin/index.php");
-    } else{
-        $error = true;
-        
+        if ($user && password_verify($password, $user['password'])) {
+            $_SESSION["login"] = true;
+            $_SESSION["user_id"] = $user['id'];
+            $_SESSION["user_name"] = $user['nama'];
+            $_SESSION["user_email"] = $user['email'];
+            $_SESSION["user_oshimen"] = $user['namaOshimen'];
+            
+            // Redirect ke halaman profil
+            header("Location: ../user/profile.php");
+            exit;
+        } else if ($email === 'Admin' && $password === 'admin123#') {
+            // Redirect ke halaman admin
+            header("Location: ../admin/index.php");
+            exit;
+        } else {
+            throw new Exception("Email atau password salah.");
+        }
+    } catch (Exception $e) {
+        // Menangkap error
+        $errorMessage = $e->getMessage();
     }
 }
 ?>
@@ -66,8 +72,8 @@ if (isset($_POST['submit'])) {
       <div class="flex-1 max-w-md bg-white p-8 rounded-lg shadow-md mx-auto">
         <h2 class="text-center text-2xl font-bold mb-6">Login</h2>
         <p class="text-red-800 mb-6">Bagian bertanda * harus diisi.</p>
-        <?php if (isset($error) && $error): ?>
-            <p style="color: red; text-align: center; font-style: italic;">Username atau Password salah!</p>
+        <?php if (isset($errorMessage)): ?>
+            <p style="color: red; text-align: center; font-style: italic;"><?php echo htmlspecialchars($errorMessage); ?></p>
         <?php endif; ?>
         <form action="" method="post" class="space-y-6">
           <div>

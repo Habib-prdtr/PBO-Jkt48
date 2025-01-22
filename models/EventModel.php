@@ -3,10 +3,45 @@
 require_once __DIR__ . '/../config/database.php';
 require_once __DIR__ . '/../node/nodeEvent.php';
 
+interface EventModelInterface {
+    public function tambahEvent(EventJkt $event);
+    public function updateEvent($id, EventJkt $event);
+    public function hapusEvent($id);
+}
 
-class EventModel {
+class EventModel implements EventModelInterface {
     private $table = "events";
 
+    public function tambahEvent(EventJkt $event) {
+        global $db;
+
+        // Proses upload gambar
+        $gambar = $this->upload();
+        if (!$gambar) {
+            return false;
+        }
+
+        // Menyimpan data ke dalam database
+        $query = "INSERT INTO $this->table (foto, nama, tanggal, tempat, harga, stok, tipeEvent)
+                  VALUES ('{$gambar}', '{$event->nama}', '{$event->tanggal}', '{$event->tempat}', '{$event->harga}', '{$event->stok}', '{$event->tipeEvent}')";
+        mysqli_query($db, $query);
+        return mysqli_affected_rows($db);
+    }
+
+    public function hapusEvent($id) {
+        global $db;
+
+        // Ambil data event untuk mendapatkan nama file foto
+        $event = $this->getEventById($id);
+        if ($event) {
+            $this->hapusFileGambar($event['foto']);
+        }
+
+        $query = "DELETE FROM $this->table WHERE id = $id";
+        mysqli_query($db, $query);
+        return mysqli_affected_rows($db);
+    }
+    
     // Fungsi untuk menangani upload gambar
     public function upload() {
         if (!isset($_FILES['foto']) || $_FILES['foto']['error'] !== UPLOAD_ERR_OK) {
@@ -51,36 +86,6 @@ class EventModel {
         if (file_exists($filePath)) {
             unlink($filePath);
         }
-    }
-
-    public function tambahEvent(EventJkt $event) {
-        global $db;
-
-        // Proses upload gambar
-        $gambar = $this->upload();
-        if (!$gambar) {
-            return false;
-        }
-
-        // Menyimpan data ke dalam database
-        $query = "INSERT INTO $this->table (foto, nama, tanggal, tempat, harga, stok, tipeEvent)
-                  VALUES ('{$gambar}', '{$event->nama}', '{$event->tanggal}', '{$event->tempat}', '{$event->harga}', '{$event->stok}', '{$event->tipeEvent}')";
-        mysqli_query($db, $query);
-        return mysqli_affected_rows($db);
-    }
-
-    public function hapusEvent($id) {
-        global $db;
-
-        // Ambil data event untuk mendapatkan nama file foto
-        $event = $this->getEventById($id);
-        if ($event) {
-            $this->hapusFileGambar($event['foto']);
-        }
-
-        $query = "DELETE FROM $this->table WHERE id = $id";
-        mysqli_query($db, $query);
-        return mysqli_affected_rows($db);
     }
 
     public function updateEvent($id, EventJkt $event) {

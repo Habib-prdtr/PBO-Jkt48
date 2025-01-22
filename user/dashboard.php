@@ -129,7 +129,7 @@ body {
             <div class="swiper-pagination"></div>
         </div>
     </div>
-    <main class="container mx-auto mt-8 px-4 sm:px-6 md:px-8 lg:px-16">
+    <main class="container mx-auto mt-8 mb-10 px-4 sm:px-6 md:px-8 lg:px-16">
 
         <section class="max-w-2xl mx-auto space-y-6">
             <div class="card bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-300">
@@ -181,7 +181,7 @@ body {
         </div>
     </div>
 
-    <footer class="bg-gray-900 text-white py-4 mt-10" style="overflow: hidden;">
+    <footer class="bg-gray-900 text-white py-4 mt-auto" style="overflow: hidden;">
         <div class="container mx-auto text-center px-20">
             <p class="text-jkt-gold font-semibold text-sm sm:text-base">&copy; 2024 JKT48 Official Fansite</p>
             <a href="https://www.instagram.com/habib_prdtr" target="_blank" class="text-sm sm:text-base">

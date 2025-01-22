@@ -153,7 +153,7 @@ if (!$user) {
                 <th class="px-4 sm:px-6 py-3 text-center font-semibold">Operasi</th>
               </tr>
             </thead>
-        <tbody>
+            <tbody>
             <?php if (!empty($history)) : ?>
                 <?php foreach ($history as $index => $item) : 
                     $jumlah = ($item['type'] === 'topUp') ? "{$item['jumlah']}" : "{$item['jumlah']}";
@@ -178,11 +178,8 @@ if (!$user) {
                                 onclick="showDetailModal(<?= $index ?>)">Detail</button>
                         </td>
                     </tr>
-
-                    <!-- Modal -->
                     <div id="modal-<?= $index ?>" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
                     <div class="bg-white rounded-xl p-4 w-full max-w-md shadow-lg relative">
-                        <!-- Header -->
                         <h2 class="text-lg font-semibold mb-3 text-gray-800 flex items-center">
                             <span class="inline-block bg-red-500 text-white w-6 h-6 flex items-center justify-center rounded-full mr-2 text-sm">
                                 <?= ucfirst($item['type'])[0] ?>
@@ -190,25 +187,22 @@ if (!$user) {
                             Detail <?= ucfirst($item['type']) ?>
                         </h2>
                         <div class="space-y-2 border-t pt-2">
-                            <!-- Informasi ID -->
                             <div class="grid grid-cols-3 gap-1">
                                 <span class="text-gray-600 font-medium font-bold text-left">ID</span>
                                 <span class="text-gray-600 font-medium text-sm text-left">:</span>
                                 <span class="text-gray-800 font-medium text-sm text-left"><?= $item['id'] ?></span>
                             </div>
-                            <!-- Tanggal -->
+                              
                             <div class="grid grid-cols-3 gap-1">
                                 <span class="text-gray-600 font-medium font-bold text-left">Tanggal</span>
                                 <span class="text-gray-600 font-medium text-sm text-left">:</span>
                                 <span class="text-gray-800 text-sm text-left"><?= $item['Tanggal'] ?></span>
                             </div>
-                            <!-- Jumlah -->
                             <div class="grid grid-cols-3 gap-1">
                                 <span class="text-gray-600 font-medium font-bold text-left">Jumlah</span>
                                 <span class="text-gray-600 font-medium text-sm text-left">:</span>
                                 <span class="text-green-600 font-medium text-sm text-left"><?= $item['jumlah'] ?> P</span>
                             </div>
-                            <!-- Status atau Detail Transaksi -->
                             <?php if ($item['type'] === 'topUp') : ?>
                                 <div class="grid grid-cols-3 gap-1">
                                     <span class="text-gray-600 font-medium font-bold text-left">Status</span>
@@ -238,7 +232,6 @@ if (!$user) {
                                 </div>
                             <?php endif; ?>
                         </div>
-                        <!-- Tombol Tutup -->
                         <div class="mt-4 text-right">
                         <a href="../user/cetak.php?id=<?= $item['id'] ?>" target="_blank">
                                 <button class="inline-flex items-center bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 shadow-lg transition text-sm">
@@ -253,9 +246,7 @@ if (!$user) {
                                 onclick="hideDetailModal(<?= $index ?>)">
                                 Tutup
                             </button>
-                            <!-- Tombol Cetak PDF -->
                         </div>
-                        <!-- Tombol Close (Desktop) -->
                         <button 
                             class="absolute top-2 right-2 text-gray-400 hover:text-gray-600 transition text-lg"
                             onclick="hideDetailModal(<?= $index ?>)">
@@ -294,7 +285,5 @@ function hideDetailModal(index) {
       <p class="mt-2 text-xs sm:text-sm">All Rights Reserved | Reference <a href="https://jkt48.com/" target="_blank">jkt48.com</a></p>
     </div>
   </footer>
-
 </body>
 </html>
-

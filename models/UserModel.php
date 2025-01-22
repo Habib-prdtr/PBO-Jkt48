@@ -180,56 +180,56 @@ class UserModel {
     }
     
     public function getAllHistory($userId)
-{
-    global $db;
-    $userId = mysqli_real_escape_string($db, $userId);
-    $query = "
-        SELECT 
-            t.id AS id, 
-            t.jumlahPoint AS jumlah, 
-            t.tanggal AS Tanggal, 
-            t.status AS status, 
-            NULL AS eventNama, 
-            NULL AS jumlahTiket, 
-            NULL AS bayar, 
-            NULL AS kembalian, 
-            'topUp' AS type
-        FROM topUp t
-        WHERE t.userId = '$userId' AND t.status NOT IN ( 'pending') 
-        
-        UNION ALL
-
-        SELECT 
-            tr.id AS id, 
-            tr.totalHarga AS jumlah, 
-            tr.tanggal AS Tanggal, 
-            NULL AS status, 
-            e.nama AS eventNama, 
-            tr.jumlahTiket AS jumlahTiket, 
-            tr.bayar AS bayar, 
-            tr.kembalian AS kembalian, 
-            'transaksi' AS type
-        FROM transaksitiket tr
-        LEFT JOIN events e ON tr.eventId = e.id
-        WHERE tr.userId = '$userId'
-
-        
-        ORDER BY Tanggal ASC
-    ";
-    $result = mysqli_query($db, $query);
-
-    if (!$result) {
-        die("Query error: " . mysqli_error($db));
+    {
+        global $db;
+        $userId = mysqli_real_escape_string($db, $userId);
+        $query = "
+            SELECT 
+                t.id AS id, 
+                t.jumlahPoint AS jumlah, 
+                t.tanggal AS Tanggal, 
+                t.status AS status, 
+                NULL AS eventNama, 
+                NULL AS jumlahTiket, 
+                NULL AS bayar, 
+                NULL AS kembalian, 
+                'topUp' AS type
+            FROM topup t
+            WHERE t.userId = '$userId' AND t.status NOT IN ( 'pending') 
+            
+            UNION ALL
+    
+            SELECT 
+                tr.id AS id, 
+                tr.totalHarga AS jumlah, 
+                tr.tanggal AS Tanggal, 
+                NULL AS status, 
+                e.nama AS eventNama, 
+                tr.jumlahTiket AS jumlahTiket, 
+                tr.bayar AS bayar, 
+                tr.kembalian AS kembalian, 
+                'transaksi' AS type
+            FROM transaksitiket tr
+            LEFT JOIN events e ON tr.eventId = e.id
+            WHERE tr.userId = '$userId'
+    
+            
+            ORDER BY Tanggal ASC
+        ";
+        $result = mysqli_query($db, $query);
+    
+        if (!$result) {
+            die("Query error: " . mysqli_error($db));
+        }
+    
+        // Ambil hasil query
+        $history = [];
+        while ($row = mysqli_fetch_assoc($result)) {
+            $history[] = $row;
+        }
+    
+        return $history;
     }
-
-    // Ambil hasil query
-    $history = [];
-    while ($row = mysqli_fetch_assoc($result)) {
-        $history[] = $row;
-    }
-
-    return $history;
-}
 
 function getHistoryById($userId, $id) {
     global $db;
@@ -247,7 +247,7 @@ function getHistoryById($userId, $id) {
             NULL AS kembalian, 
             NULL AS tempat,
             'topUp' AS type
-        FROM topUp t
+        FROM topup t
         WHERE t.userId = '$userId' AND t.id = '$id' AND t.status NOT IN ( 'pending') 
         
         UNION ALL

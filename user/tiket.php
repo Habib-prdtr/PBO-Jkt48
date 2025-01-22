@@ -59,10 +59,11 @@ $user = $obj_user->getUserById($userId);
                target="_blank" 
                class="block transform hover:scale-105 transition-transform duration-300">
                 <div class="card bg-red-600 text-white shadow-lg h-full">
-                    <div class="card-body p-2 sm:p-4 flex flex-col items-center justify-center text-center">
-                        <i class="fas fa-map-marker-alt text-xl sm:text-3xl mb-1 sm:mb-2"></i>
-                        <h2 class="card-title text-xs sm:text-lg">Tempat</h2>
-                        <p class="text-xs sm:text-sm"><?= htmlspecialchars($event['tempat']); ?></p>
+                    <div class="card-body p-2 sm:p-4 flex flex-col">
+                        <i class="fas fa-map-marker-alt text-xl sm:text-3xl mb-1 sm:mb-2  items-center justify-center  text-center"></i>
+                        <h2 class="card-title text-xs sm:text-lg  items-center justify-center  text-center">Tempat</h2>
+                        <p class="text-xs sm:text-sm  items-center justify-center  text-center"><?= htmlspecialchars($event['tempat']); ?></p>
+                        <p class="text-xs sm:text-sm text-align-left">klik here to location</p>
                     </div>
                 </div>
             </a>
