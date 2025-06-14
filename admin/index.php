@@ -1,4 +1,11 @@
 <?php
+session_start();
+if (!isset($_SESSION['login'])) {
+    header('Location: ../user/login.php');
+    exit;
+}
+
+
 require_once __DIR__ . '/../controller/controllerMemberJkt.php';
 require_once __DIR__ . '/../controller/controllerEvent.php';
 require_once __DIR__ . '/../controller/controllerTopUp.php';
@@ -102,7 +109,15 @@ switch ($modul) {
                 case 'delete':
                     $topUpController->delete();
                     break;
-        
+
+                case 'cekNotifikasi':
+                    $topUpController->cekNotifikasi();
+                    break;
+                
+                case 'getSessionNotif':
+                    $topUpController->getSessionNotif();
+                    break;
+
                 default:
                     $topUpController->list();
                     break;

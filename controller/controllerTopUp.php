@@ -1,5 +1,4 @@
 <?php
-session_start();
 require_once __DIR__ . '/../models/TopUpModel.php';
 require_once __DIR__ . '/../models/UserModel.php';
 
@@ -74,6 +73,7 @@ class TopUpController
             // Update the top-up status to 'approved'
             $result = $this->obj_topUp->updateStatusTopUp($id, $status);
             if ($result > 0) {
+                $_SESSION['show_notif_user_' . $userId] = "Top-up sebesar $jumlahPoint telah disetujui!";
                 echo "<script>alert('Top-up berhasil disetujui!');</script>";
                 header("Location: index.php?modul=topUp");
             } else {
@@ -91,10 +91,12 @@ class TopUpController
         if ($topUpData) {
             // Update status to 'rejected'
             $status = 'rejected';
+            $userId = $topUpData['userId'];
 
             // Update the top-up status to 'rejected'
             $result = $this->obj_topUp->updateStatusTopUp($id, $status);
             if ($result > 0) {
+                $_SESSION['show_notif_user_' . $userId] = "Top-up kamu ditolak. Silakan coba lagi.";
                 echo "<script>alert('Top-up berhasil ditolak!');</script>";
                 header("Location: index.php?modul=topUp");
             } else {
@@ -123,5 +125,57 @@ class TopUpController
         $topUps = $this->obj_topUp->getTopUpList();
         include "../admin/listTopUp.php";
     }
+
+    public function cekNotifikasi()
+{
+    header('Content-Type: application/json');
+
+    if (!isset($_SESSION['user_id'])) {
+        echo json_encode([]);
+        return;
+    }
+
+    $userId = $_SESSION['user_id'];
+
+    // Cek notifikasi approved
+    $topUpData = $this->obj_topUp->getNotifikasiTopUpApproved($userId);
+    if ($topUpData) {
+        $this->obj_topUp->tandaiNotifikasiTerkirim($topUpData['id']);
+        echo json_encode([
+            'message' => "Top-up sebesar {$topUpData['jumlahPoint']} telah disetujui!",
+            'status' => 'success'
+        ]);
+        return;
+    }
+
+    // Cek notifikasi rejected
+    $topUpRejected = $this->obj_topUp->getNotifikasiTopUpRejected($userId);
+    if ($topUpRejected) {
+        $this->obj_topUp->tandaiNotifikasiTerkirim($topUpRejected['id']);
+        echo json_encode([
+            'message' => "Top-up kamu ditolak. Silakan coba lagi.",
+            'status' => 'error'
+        ]);
+        return;
+    }
+
+    // Tidak ada notifikasi
+    echo json_encode([]);
+}
+    public function getSessionNotif()
+{
+    $userId = $_SESSION['user_id'];
+
+    $key = 'show_notif_user_' . $userId;
+
+    if (isset($_SESSION[$key])) {
+        echo json_encode(['message' => $_SESSION[$key]]);
+        unset($_SESSION[$key]); // supaya cuma muncul sekali
+    } else {
+        echo json_encode([]);
+    }
+}
+
+
 }
 ?>

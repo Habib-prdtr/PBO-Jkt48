@@ -113,5 +113,7 @@ if (!isset($_SESSION['login'])) {
     buyPoints.addEventListener('change', calculateKembalian);
     bayarInput.addEventListener('input', calculateKembalian);
   </script>
+  <div id="toast-container" class="fixed bottom-5 right-5 space-y-2 z-50"></div>
 </body>
+<script src="../includes/notifikasi.js"></script>
 </html>

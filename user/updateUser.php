@@ -129,5 +129,7 @@
             <p class="mt-2 text-xs sm:text-sm">All Rights Reserved | Reference <a href="https://jkt48.com/" target="_blank">jkt48.com</a></p>
         </div>
     </footer>
+    <div id="toast-container" class="fixed bottom-5 right-5 space-y-2 z-50"></div>
 </body>
+<script src="../includes/notifikasi.js"></script>
 </html>

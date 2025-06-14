@@ -26,6 +26,16 @@ $events = $eventModel->getEvents();
                 }
             }
         }
+
+        document.addEventListener('DOMContentLoaded', function () {
+        if (Notification.permission !== "granted") {
+            Notification.requestPermission().then(function (permission) {
+            if (permission === "granted") {
+                console.log("Notifikasi diizinkan");
+            }
+            });
+        }
+        });
     </script>
     <style>
         @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap");
@@ -232,5 +242,7 @@ function openModal(id, title, content) {
             }
         });
     </script>
+    <div id="toast-container" class="fixed bottom-5 right-5 space-y-2 z-50"></div>
 </body>
+<script src="../includes/notifikasi.js"></script>
 </html>

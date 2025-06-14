@@ -1,5 +1,4 @@
 <?php
-// Mulai sesi untuk menyimpan data login pengguna
 session_start();
 
 require_once '../config/database.php'; // Ganti dengan path yang sesuai
@@ -7,7 +6,6 @@ require_once '../models/UserModel.php'; // Ganti dengan path yang sesuai
 
 $userModel = new UserModel();
 
-// Debug: Cek apakah form disubmit
 if (isset($_POST['submit'])) {
     try {
         $email = $_POST["email"];
@@ -16,28 +14,30 @@ if (isset($_POST['submit'])) {
         $user = $userModel->getUserByEmail($email);
 
         if ($user && password_verify($password, $user['password'])) {
+            // Set session
             $_SESSION["login"] = true;
             $_SESSION["user_id"] = $user['id'];
             $_SESSION["user_name"] = $user['nama'];
             $_SESSION["user_email"] = $user['email'];
             $_SESSION["user_oshimen"] = $user['namaOshimen'];
-            
-            // Redirect ke halaman profil
-            header("Location: ../user/profile.php");
-            exit;
-        } else if ($email === 'Admin' && $password === 'admin123#') {
-            // Redirect ke halaman admin
-            header("Location: ../admin/index.php");
-            exit;
+
+            // Cek apakah user ini adalah admin
+            if ($user['email'] === 'admin25@gmail.com') {
+                header("Location: ../admin/index.php");
+                exit;
+            } else {
+                header("Location: ../user/profile.php");
+                exit;
+            }
         } else {
             throw new Exception("Email atau password salah.");
         }
     } catch (Exception $e) {
-        // Menangkap error
         $errorMessage = $e->getMessage();
     }
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="id">

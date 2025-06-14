@@ -58,5 +58,29 @@ class TopUpModel {
         return $topUpList;
     }
     
+    public function getNotifikasiTopUpApproved($userId)
+    {
+        global $db;
+        $query = "SELECT * FROM topup WHERE userId = $userId AND status = 'approved' AND notif = 0 ORDER BY tanggal DESC LIMIT 1";
+        $result = mysqli_query($db, $query);
+        return mysqli_fetch_assoc($result);
+    }
+
+    public function getNotifikasiTopUpRejected($userId)
+    {
+        global $db;
+        $query = "SELECT * FROM topup WHERE userId = $userId AND status = 'rejected' AND notif = 0 ORDER BY tanggal DESC LIMIT 1";
+        $result = mysqli_query($db, $query);
+        return mysqli_fetch_assoc($result);
+    }
+
+
+    public function tandaiNotifikasiTerkirim($topupId)
+    {
+        global $db;
+        $query = "UPDATE topup SET notif = 1 WHERE id = $topupId";
+        return mysqli_query($db, $query);
+    }
+
 }
 ?>

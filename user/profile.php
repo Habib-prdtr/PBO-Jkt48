@@ -64,6 +64,20 @@ if (!$user) {
     footer {
       flex-shrink: 0;
     }
+
+    @keyframes slide-in-fade {
+      0% {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .animate-slide-in-fade {
+      animation: slide-in-fade 0.4s ease-out;
+    }
   </style>
 </head>
 <body class="bg-gray-100 flex flex-col min-h-screen">
@@ -264,17 +278,7 @@ if (!$user) {
         </tbody>
     </table>
 </div>
-
-<script>
-function showDetailModal(index) {
-    document.getElementById(`modal-${index}`).classList.remove('hidden');
-}
-
-function hideDetailModal(index) {
-    document.getElementById(`modal-${index}`).classList.add('hidden');
-}
-</script>
-    </div>
+  </div>
   </div>
   <footer class="bg-gray-900 text-white py-4 w-full" style="overflow: hidden;">
     <div class="container mx-auto text-center px-4">
@@ -285,5 +289,17 @@ function hideDetailModal(index) {
       <p class="mt-2 text-xs sm:text-sm">All Rights Reserved | Reference <a href="https://jkt48.com/" target="_blank">jkt48.com</a></p>
     </div>
   </footer>
+  <!-- Tempel di akhir <body> -->
+<div id="toast-container" class="fixed bottom-5 right-5 space-y-3 z-50"></div>
 </body>
+<script>
+    function showDetailModal(index) {
+        document.getElementById(`modal-${index}`).classList.remove('hidden');
+    }
+
+    function hideDetailModal(index) {
+        document.getElementById(`modal-${index}`).classList.add('hidden');
+    }
+</script>
+<script src="../includes/notifikasi.js"></script>
 </html>
